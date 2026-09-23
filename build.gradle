@@ -1,0 +1,130 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        maven { url 'https://jitpack.io' }
+    }
+    dependencies {
+        classpath 'com.github.FarnGitHub:Unimined-AccessWidener-Fixer:master-SNAPSHOT'
+    }
+}
+
+plugins {
+    id 'java'
+    id 'xyz.wagyourtail.unimined' version "1.4.2-SNAPSHOT"
+}
+
+group = project.property('group')
+version = project.property('version')
+base.archivesName = project.property('modname')
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.release = 8
+}
+
+import xyz.wagyourtail.unimined.internal.minecraft.MinecraftProvider
+import xyz.wagyourtail.unimined.api.minecraft.task.RemapJarTask
+
+import java.util.zip.ZipFile
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    flatDir {
+        dirs 'custom_jar'
+    }
+}
+
+unimined {
+
+    minecraft {
+        version 'b1.7.3'
+        side "client"
+
+        mappings {
+            retroMCP("b1.7")
+            devNamespace("retroMCP")
+            stubs(['official', 'retroMCP']) {
+                def base = 'net/minecraft/src'
+                def mapClass = { name ->
+                    def path = "$base/$name"
+                    c(name, path, path)
+                }
+
+                jarClasses(file('custom_jar/ModLoaderRecobbled-1.2.1.jar')).each(mapClass)
+                jarClasses(file('custom_jar/recobbled-1.6_03.jar')).each(mapClass)
+            }
+        }
+
+        MinecraftProvider mc = delegate as MinecraftProvider
+
+        runs {
+            config("client") {
+                javaVersion = JavaVersion.VERSION_1_8
+                jvmArgs "-Dfabric.gameVersion=${mc.version}", "-Dfabric.runtimeMappingNamespace=named"
+            }
+        }
+
+        merged {
+            fabric {
+                loader project.property('fabric_loader')
+                if(hasAccessWidener())
+                    accessWidener(project.file("src/main/resources/" + project.property('access_widener')))
+                customIntermediaries = true
+                prodNamespace "official"
+                devMappings = null
+            }
+            jarMod {
+                enableJarModAgent = false
+            }
+        }
+    }
+}
+
+dependencies {
+    jarMod name: "recobbled", version: "1.6_03"
+    modImplementation name: "ModLoaderRecobbled", version: "1.2.1"
+}
+
+processResources {
+    inputs.property "version", project.version
+
+    filesMatching("fabric.mod.json") {
+        expand "version": project.version
+    }
+}
+
+tasks.withType(RemapJarTask).configureEach {
+    mixinRemap {
+        enableBaseMixin()
+        enableMixinExtra()
+    }
+}
+
+def hasAccessWidener() {
+    return project.hasProperty('access_widener') && project.access_widener.length() > 0
+}
+
+def jarClasses(File file) {
+    def zip = new ZipFile(file)
+    def names = []
+
+    try {
+        zip.entries().each { entry ->
+            if (entry.name.endsWith('.class') && !entry.name.contains('/')) {
+                def name = entry.name - '.class'
+                if (name.size() > 2) {
+                    names << name
+                }
+            }
+        }
+    } finally {
+        zip.close()
+    }
+
+    return names
+}

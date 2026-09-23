@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "id": "itemnbt",
+  "version": "${version}",
+  "name": "ItemNbt-Recobbled",
+  "description": "Allows items to carry custom NBT data.",
+  "authors": [
+    "sunsetsatellite",
+    "farnfarn02"
+  ],
+  "license": "CC0-1.0",
+  "environment": "client",
+  "mixins": [
+    "itemnbt.mixins.json"
+  ],
+  "accessWidener": "itemnbt.accessWidener",
+  "depends": {
+    "minecraft": "1.0.0-beta.7.3",
+    "java": ">=8"
+  }
+}

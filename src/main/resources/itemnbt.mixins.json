@@ -1,0 +1,28 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "farn.itemNbt.mixin.impl",
+  "compatibilityLevel": "JAVA_8",
+  "plugin": "farn.itemNbt.mixin.MixinPlugin",
+  "mixins": [
+    "BlockWithInventoryMixin",
+    "InventoryPlayerMixin",
+    "ItemStackMixin",
+    "ContainerMixin",
+    "nbt.NbtByteArrayMixin",
+    "nbt.NbtByteMixin",
+    "nbt.NbtCompoundMixin",
+    "nbt.NbtDoubleMixin",
+    "nbt.NbtElementMixin",
+    "nbt.NbtEndMixin",
+    "nbt.NbtFloatMixin",
+    "nbt.NbtIntMixin",
+    "nbt.NbtListMixin",
+    "nbt.NbtLongMixin",
+    "nbt.NbtShortMixin",
+    "nbt.NbtStringMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

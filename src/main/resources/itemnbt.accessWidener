@@ -1,0 +1,9 @@
+classTweaker v1 named
+
+accessible field net/minecraft/client/Minecraft theMinecraft Lnet/minecraft/client/Minecraft;
+accessible field net/minecraft/src/NBTTagList tagList Ljava/util/List;
+accessible field net/minecraft/src/NBTTagCompound tagMap Ljava/util/Map;
+transitive-inject-interface net/minecraft/src/NBTBase farn/itemNbt/impl/nbt/NbtCopy
+transitive-inject-interface net/minecraft/src/NBTTagCompound farn/itemNbt/impl/nbt/NbtCompoundCopy
+transitive-inject-interface net/minecraft/src/ItemStack farn/itemNbt/impl/ItemStackWithNbt
+
