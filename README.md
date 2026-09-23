@@ -1,2 +1,2 @@
-Recobbled 1.6\_03 Fabric Example Mod
+Port of [sunsetsatellite](https://github.com/MartinSVK12)'s ItemNbt mod to Recobbled Fabric Loader
 
