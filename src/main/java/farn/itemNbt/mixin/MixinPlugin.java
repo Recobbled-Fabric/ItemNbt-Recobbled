@@ -14,6 +14,7 @@ import java.util.ListIterator;
 import java.util.Set;
 import java.util.function.Consumer;
 
+@SuppressWarnings("RedundantMethodOverride")
 public class MixinPlugin implements IMixinConfigPlugin {
 
     public void onLoad(String mixinPackage) {

@@ -3,7 +3,16 @@ classTweaker v1 named
 accessible field net/minecraft/client/Minecraft theMinecraft Lnet/minecraft/client/Minecraft;
 accessible field net/minecraft/src/NBTTagList tagList Ljava/util/List;
 accessible field net/minecraft/src/NBTTagCompound tagMap Ljava/util/Map;
-transitive-inject-interface net/minecraft/src/NBTBase farn/itemNbt/impl/nbt/NbtCopy
 transitive-inject-interface net/minecraft/src/NBTTagCompound farn/itemNbt/impl/nbt/NbtCompoundCopy
+transitive-inject-interface net/minecraft/src/NBTTagByte farn/itemNbt/impl/nbt/NbtByteCopy
+transitive-inject-interface net/minecraft/src/NBTTagByteArray farn/itemNbt/impl/nbt/NbtByteArrayCopy
+transitive-inject-interface net/minecraft/src/NBTTagDouble farn/itemNbt/impl/nbt/NbtDoubleCopy
+transitive-inject-interface net/minecraft/src/NBTTagEnd farn/itemNbt/impl/nbt/NbtEndCopy
+transitive-inject-interface net/minecraft/src/NBTTagFloat farn/itemNbt/impl/nbt/NbtFloatCopy
+transitive-inject-interface net/minecraft/src/NBTTagInt farn/itemNbt/impl/nbt/NbtIntCopy
+transitive-inject-interface net/minecraft/src/NBTTagList farn/itemNbt/impl/nbt/NbtListCopy
+transitive-inject-interface net/minecraft/src/NBTTagLong farn/itemNbt/impl/nbt/NbtLongCopy
+transitive-inject-interface net/minecraft/src/NBTTagShort farn/itemNbt/impl/nbt/NbtShortCopy
+transitive-inject-interface net/minecraft/src/NBTTagString farn/itemNbt/impl/nbt/NbtStringCopy
 transitive-inject-interface net/minecraft/src/ItemStack farn/itemNbt/impl/ItemStackWithNbt
 
